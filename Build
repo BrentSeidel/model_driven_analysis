@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# Make bibleography
+#
+echo
+echo Building bibleography
+bibtex MDA

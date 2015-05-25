@@ -1,0 +1,386 @@
+\documentclass[10pt,journal,letterpaper,compsoc]{IEEEtran}
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+% *** CITATION PACKAGES ***
+%
+\ifCLASSOPTIONcompsoc
+  % IEEE Computer Society needs nocompress option
+  % requires cite.sty v4.0 or later (November 2003)
+  % \usepackage[nocompress]{cite}
+\else
+  % normal IEEE
+  \usepackage{cite}
+\fi
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
+% not currently provide for hyperlinked citations.
+% The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
+% The documentation is contained in the cite.sty file itself.
+%
+% Note that some packages require special options to format as the Computer
+% Society requires. In particular, Computer Society  papers do not use
+% compressed citation ranges as is done in typical IEEE papers
+% (e.g., [1]-[4]). Instead, they list every citation separately in order
+% (e.g., [1], [2], [3], [4]). To get the latter we need to load the cite
+% package with the nocompress option which is supported by cite.sty v4.0
+% and later. Note also the use of a CLASSOPTION conditional provided by
+% IEEEtran.cls V1.7 and later.
+
+%
+% Rules to allow import of graphics files in PDF format
+%
+\usepackage{pstricks}
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf}
+\DeclareGraphicsRule{.pdf}{pdf}{.pdf}{}
+\DeclareGraphicsExtensions{.jpg}
+\DeclareGraphicsRule{. jpg}{jpg}{. jpg}{}
+
+% *** MATH PACKAGES ***
+%
+\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+\usepackage{multirow}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{pgf}
+
+\usepackage{url}
+
+%
+% Rules to add a "DRAFT" watermark to the output.
+%
+\usepackage{graphicx}
+\usepackage{type1cm}
+\usepackage{eso-pic}
+\makeatletter
+\newcommand{\watermark}[1]{
+\AddToShipoutPicture{%
+            \setlength{\@tempdimb}{.5\paperwidth}%
+            \setlength{\@tempdimc}{.5\paperheight}%
+            \setlength{\unitlength}{1pt}%
+            \put(\strip@pt\@tempdimb,\strip@pt\@tempdimc){%
+        \makebox(0,0){\rotatebox{45}{\textcolor[gray]{0.75}%
+        {\fontsize{6cm}{6cm}\selectfont{#1}}}}%
+            }%
+}}
+\makeatother
+%\watermark{Draft}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+%===============================================================
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Model Driven Architecture\\An Overview}
+\author{Brent~Seidel\\Arizona State University}
+
+% The paper headers
+\markboth{Model Driven Architecture, April~2011}{B. Seidel}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+% for Computer Society papers, we must declare the abstract and index terms
+% PRIOR to the title within the \IEEEcompsoctitleabstractindextext IEEEtran
+% command as these need to go into the title area created by \maketitle.
+\IEEEcompsoctitleabstractindextext{%
+\begin{abstract}
+It has long been the dream of managers to eliminate computer programmers.  Model Driven Architecture is the latest in a series of attempts to accomplish this.  We review flowcharting, mainly for historical interest, UML, and BPMN for use in Model Driven Architecture.  Based on the pros and cons of these approaches, we make a cautious recommendation for the use of Model Driven Architecture in developing new enterprise applications.
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+Model Driven Architecture, Object Management Group, Uniform Modeling Language, Business Process Modeling Notation
+\end{IEEEkeywords}}
+
+% make the title area
+\maketitle
+
+% To allow for easy dual compilation without having to reenter the
+% abstract/keywords data, the \IEEEcompsoctitleabstractindextext text will
+% not be used in maketitle, but will appear (i.e., to be "transported")
+% here as \IEEEdisplaynotcompsoctitleabstractindextext when compsoc mode
+% is not selected <OR> if conference mode is selected - because compsoc
+% conference papers position the abstract like regular (non-compsoc)
+% papers do!
+\IEEEdisplaynotcompsoctitleabstractindextext
+% \IEEEdisplaynotcompsoctitleabstractindextext has no effect when using
+% compsoc under a non-conference mode.
+
+
+\section{Introduction}
+\IEEEPARstart{S}{oftware} development is hard work.  In the early days, major advances were made with the introduction of high level programming languages and structured programming.  Flowcharting was adopted for software and used for a while, but has largely been abandoned.  Still, the lure of a visual representation of software has remained strong.  This is in spite of Fred Brook's observation that ``\dots software is very difficult to visualize.''\cite{Brooks1995}.  More recently, the idea has been promoted in IEE 598, \emph{Introduction to Systems Engineering}\cite{Shunk2008}.
+
+This is not to say that diagrams and models aren't useful and that progress hasn't been made.  There have been advances in programming languages and methodologies.  Some of these have proved to be more successful than others.  Object oriented programming is now common.  Unified Modeling Language (UML), and other modeling notations, are useful for analysis, design, and documentation of systems.  On the interoperability front, the Object Management Group (OMG) was formed to develop and promote standards for enterprise integration\cite{OMG2011}.
+
+There is tension between the developers of platforms and the developers of application software.  The platform developers, such as Microsoft and Apple, want to encourage the application developers to focus solely on their platform.  The application developers on the other hand want their software to work on as many platforms as possible.  Java is perhaps the best known attempt to enable platform independent software development.
+
+One of the early interoperability standards developed by the OMG was the Common Object Request Broker: Architecture and Specifications (CORBA)\cite{CORBA2011}.  The first version was released in October of 1991 and the standard has been developed since then.
+
+The OMG views its Model Driven Architecture (MDA) initiative as a major evolutionary step in the definition of interoperability standards\cite{poole2001}.  It moves the focus from CORBA based component interfaces to formal systems models.
+
+Agrawal, et al\cite{agrawal2002} point out that the this next step is to move from just capturing requirements to including the design and implementation in the model.  The progression has been from using the model purely as documentation to generating software skeletons that need to be filled in by hand to generating the complete application from the model.  At this point, the model becomes the source code for the application.
+
+The goal of MDA is to be able to draw the model for an application and either have it directly execute or generate the complete software for the application.  This has been achieved for some problem domains\cite{Mellor2007}.
+
+With advancing development technologies and methodologies, the job of the computer programmer has moved to higher and higher levels of abstractions.  There is no evidence to suggest that this trend will stop at MDA.  It is also not always obvious which ideas will prove effective and which will catch on.
+
+%========================================================
+\section{Examples}
+
+\IEEEPARstart{I}n this section, flowcharts, UML, and BPMN are covered.  Flowcharting is primarily of historical interested as an early attempt to graphically model software.  UML takes an objected oriented approach to software modeling.  BPMN takes a process oriented approach to software modeling.
+
+Tools do exist for methods covered.  These tools range from flowchart templates used for pencil and paper to automated design tools that ensure that various design rules are met.
+
+%--------------------------------------------------------------------------------------------------
+\subsection{Flowcharts}
+\IEEEPARstart{P}{rogrammers} of a certain age will remember flowcharts\footnote{I was given a flowcharting template in the early 80s.  It did not see much use.}.  These were always suppose to be drawn before writing code.  Brooks\cite{Brooks1995} states that they were essentially useless as a design tool, typically being drawn after coding, not before.
+
+It is perhaps telling that a quick search turned up FLOWTRACE\cite{Sherman1966}, a program from 1966 that draws flowcharts for programs in ``almost any'' programming language.  This suggests that in practice flowcharting was used more for documentation than design purposes.
+
+A flowchart model consists of several elements.  The most common are: Ovals indicating the start and end points of control flow,  Boxes containing sequences of actions, and  Diamonds indicating decisions.  There are some less used symbols that are used to indicate subroutine calls, access to mass storage, printouts, and others.  All of these elements are connected by lines indicating the flow of control.
+
+One of the drawbacks of flowcharting is that it was developed before structured programming became commonplace.  Thus, one could often get a visual representation of ``spaghetti code''.  While flowcharting is not particularly common now, its ideas live on in UML Activity Diagrams and BPMN\cite{White2004}.
+
+%--------------------------------------------------------------------------------------------------
+\subsection{UML}
+\IEEEPARstart{U}{ML} has been extensively covered in CSE 598, \emph{Software Analysis and Design} so a detailed introduction  will be omitted.
+
+UML is a complex system consisting of a number of different diagrams\cite{UML-REF1999}.  Some of these diagrams are more important for modeling the actual system.  These would include Class, Object, and Activity diagrams.  Other diagrams are more useful for understanding how the system works and interact with its environment.
+
+Stephen J. Mellor identifies four ways that UML (and other modeling notations) can be used in software development\cite{Mellor2007}:
+\begin{enumerate}
+  \item UML can be used as a communication tool when discussing the design abstractions.
+  \item It can be used as a blueprint to specify the software.
+  \item Code can be added to the model to make the model directly executable.
+  \item Models can contain an ``action language''.  This is similar to the directly executable models, but the model can also be translated to any supported implementation.
+\end{enumerate}
+
+The difference between the first two and the second two ways is that in the first two ways, UML is being used to communicate ideas with other people.  In the second two ways, UML is being used to communicate with computers.  When communicating with people, often details are omitted when they obscure the central idea.  When communicating with a computer, especially when trying to create an executable application, the details are essential.  Basically what has happened is that the modeling language has turned into a graphical programming language and has to be used with the same rigor as other programming languages.
+
+Even though Mellor\cite{Mellor2007} has an optimistic view of what is possible, he notes that the problem is not yet solved.  In particular, he says, there is a need for a common ``action language''.  Without this, models developed using one UML tool may not execute on a different UML tool.
+
+Aqrawal, et al.\cite{agrawal2002} lists three levels of tools needed for the model based development process:
+\begin{enumerate}
+  \item Tools used to create the model.
+  \item Tools used to transform the model to some executable form.
+  \item A platform where the executable form of the model is executed.
+\end{enumerate}
+
+They go on to suggest that there is still room for improvement in the model transformation tools.  High quality code generators tend to be focused on a particular domain.
+
+Should the standard UML not provide the needed semantics, there is a defined mechanism\cite{UML-REF1999} for extending UML using stereotypes and tagged values.
+
+%--------------------------------------------------------------------------------------------------
+\subsection{BPMN}
+\IEEEPARstart{B}{usiness} Process Modeling Notation (BPMN) was originally developed by the Business Process Management Initiative\cite{White2004} and is now also managed by the OMG.  While UML takes an object-oriented approach, BPMN takes a process oriented approach to modeling\cite{BPMNFaq2011}.
+
+BPMN supports three diagrams\cite{BPMN20}:
+\begin{itemize}
+  \item The process diagrams
+  \item The collaboration diagrams
+  \item The conversation diagrams
+\end{itemize}
+
+The BPMN diagrams are based on flowcharting techniques\cite{White2004} with boxes, diamonds, etc.  There are four catagories of elements:
+
+\subsubsection{Flow Objects}
+In contrast with UML, BPMN has just three core elements:
+\begin{itemize}
+  \item Event
+  \item Activity
+  \item Gateway
+\end{itemize}
+
+\subsubsection{Connecting Objects}
+There are three connecting objects that are used to connect the flow object in a diagram:
+\begin{itemize}
+  \item Sequential Flow
+  \item Message Flow
+  \item Association
+\end{itemize}
+
+\subsubsection{Swimlanes}
+Swimlanes are used to organize activities to illustrate different functional capabilities or responsibilities.  They consist of two elements: the pool and the lane, which is a partition within the pool.
+
+\subsubsection{Artifacts}
+Artifacts are used for extending the basic notation.  There are three basic types defined and more can be added as needed:
+\begin{itemize}
+  \item Data Object
+  \item Group
+  \item Annotation
+\end{itemize}
+
+The BPMN standard\cite{BPMN20} also defines what extensions to the diagrams are permitted.  Basically new elements are permitted, but the existing definitions may not change.
+
+In contrast to UML which still needs a common ``action language''\cite{Mellor2007}, BPMN includes Business Process Execution Language (BPEL) as part of the standard\cite{BPMN20}.  However, both  Vign\'{e}ras\cite{Vigneras2008} and Swenson\cite{Swenson2011} argue that BPEL isn't particularly useful because of limitations in the language itself and because BPMN models can be directly executed without needing BPEL.
+
+The language problem is that since BPMN does not enforce structured programming structures and BPEL is a structured programming language, it is possible to create BPMN models that do not easily translate to BPEL.  This language problem would also apply to UML since modern implementation languages are all structured.
+
+%--------------------------------------------------------------------------------------------------
+\subsection{Pros and Cons}
+\IEEEPARstart{O}{uyang}, et al.\cite{Chun2006} point out a problem with both the UML Activity Diagrams and BPMN.  As mentioned earlier, flowcharting was developed before structured programming.  Neither BPMN or UML restrict one from using unconstrained control transfers.  This makes it difficult to map the resulting diagrams into a structured programming language.
+
+Mellor\cite{Mellor2007} notes success in generating software for embedded systems.  Specifically, after ten years of development, his company's flagship model compiler can produce code faster and smaller than code produced by hand.  This is because of the refinement of rules used to generate code.  Shunk\cite{Shunk2008} suggests that it might be possible to replace large numbers of programmers with a few business analysts using BPMN\footnote{I argued in personal communication with Shunk that if the model is executable then the business analysts are really programmers and this should be seen as improving the productivity of programmers rather than replacing them.}.
+
+Seifert, et al.\cite{Seifert2004} discuss an often overlooked part of software development, that is, software maintenance.  Most software will be modified over its lifetime.  Sometimes these changes are due to features being added or dropped.  Sometimes they are due to interfaces being added or dropped.  Sometimes they are due to changes in other support software.  MDA claims to address this, however it doesn't offer much support for changes in the tool chain.
+
+Aqrawal, et al.\cite{agrawal2002} say that the weak point of MDA is still in the model transformation step.  There is still a need for tools that can generate high-quality products.
+
+UML has thirteen possible diagrams\cite{Calliss2008}, while BPMN has only three\cite{BPMN20}.  It is not required that one use all of the possible diagrams.  One could argue that UML is more cumbersome and BPMN is more streamlined or that UML offers richer opportunities for modeling and that BPMN is simpler.  Which is preferable would depend on the specific situation.
+
+As mentioned above, both UML and BPMN offer extension mechanisms.  When one is scribbling diagrams on the back of a napkin, this isn't a big issue.  As long as it is understood by your colleagues, anything goes.  The problem comes when one is developing executable models.  If vendor A offers a set of useful extensions, your model may not work using vendor B's tools.
+
+BPEL\cite{BPMN20} is better standardize than the UML action language\cite{Mellor2007}.  This suggests that it may be easier to move models between tools using BPMN.  However, keep in mind the previously mentioned drawbacks of BPEL.
+
+UML takes an object-oriented approach, while BPMN takes a process oriented approach to modeling\cite{BPMNFaq2011}.  Which is better would depend on your particular situation.
+
+%========================================================
+\section{Recommendations}
+\IEEEPARstart{F}{or} the development of large enterprise applications (eg. a replacement for Blackboard), I would offer a qualified endorsement for the use of MDA.  The following items should be considered:
+\begin{itemize}
+  \item A tool does not have to be perfect in order to be useful.  A tool that only generates skeletons for the classes still does some work that the programmers won't have to do.
+  \item The use of MDA will not allow large numbers of programmers to be replaced by a few business analysts.
+  \item Consider how applicable the specific tool is to your problem domain.  A tool that is optimized for creating state machines for embedded systems will probably not do a good job for a large enterprise application, and vice versa.
+  \item Consider how flexible the tool is.  Can you generate your own rules for code generation, or are you tied to vendor specified rules?
+  \item Consider the lifecycle of your application.  It is important to remember that software development tools and methodologies themselves are continuously being developed.  Will the tool that you are using continue to be supported?  This may be an argument for using an open source tool\footnote{I have just recently discovered an open source MDA tool called AndroMDA, \url{http://www.andromda.org/docs/index.html}.  I hope to get some time to evaluate it this summer.  However, this shows that such tool do exist.}.  On the other hand, if you are only going to use the tool for the initial program creation and then maintain the source code manually, this may not be an issue.
+  \item Consider the portability of your model.  How easy will it be move your model from one tool to another?  Are you going to be tied to a specific tool and vendor?  If the tool gets discontinued, you may be left scrambling for support.
+  \item Consider the languages and frameworks that the tool supports.  How easy is it to support new ones?  Are they popular, widely available ones, or are they proprietary to a specific vendor?
+  \item Consider what you and your staff have experience with.  If your staff has already been using UML for software analysis and design, then a UML based MDA tool would be a natural transition.  If you have just used ad hoc techniques, you may be better off training your staff in software development methodologies.
+  \item Since the modeling tools do not enforce structured programming and most modern programming languages are structured, you will need to be careful to construct models that are structured.
+  \item It may be worthwhile to consider trying one, or more, small pilot projects first to gain some in-house experience with MDA before attempting a large project.
+\end{itemize}
+ 
+ If approached cautiously and with careful consideration, one should be able to successfully complete a project using MDA.  The important thing to keep in mind is that software development is hard and that ``There is no magic bullet''\cite{Brooks1995}.
+
+%========================================================
+%\section{Conclusions}
+
+
+% if have a single appendix:
+%\appendix[Proof of the Zonklar Equations]
+% or
+%\appendix  % for no appendix heading
+% do not use \section anymore after \appendix, only \section*
+% is possibly needed
+
+% use appendices with more than one appendix
+% then use \section to start each appendix
+% you must declare a \section before using any
+% \subsection or using \label (\appendices by itself
+% starts a section numbered zero.)
+%
+
+%========================================================
+%\appendices
+%\section{Acronyms and Abbreviations}
+\appendix{Acronyms and Abbreviations}
+\begin{table}[!ht]
+  \label{tbl:aaa}
+  \centering
+  \begin{tabular}{ll}
+    BPEL & Business Process Execution Language\\
+    BPMN & Business Process Modeling Notation\\
+    CORBA & Common Object Request Broker\\
+    MDA & Model Driven Architecture\\
+    OMG & Object Management Group\\
+    UML & Unified Modeling Language\\
+  \end{tabular}
+\end{table}
+
+
+% you can choose not to have a title for an appendix
+% if you want by leaving the argument blank
+%\section{}
+%Appendix two text goes here.
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+\addcontentsline{toc}{section}{References}
+\bibliography{Bibleography}
+\bibliographystyle{IEEEtran}
+%\begin{thebibliography}{1}
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+%\begin{IEEEbiographynophoto}{Brent Seidel}
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{author}}]{Brent Seidel}
+is an online Masters of Engineering in Systems Engineering student at Arizona State University.  He as worked at Boeing and at Honeywell on a variety of aircraft systems.
+\end{IEEEbiography}
+%\end{IEEEbiographynophoto}
+
+\end{document}
+
+
